@@ -14,9 +14,11 @@ public class Main {
         List<String> linkList = new ArrayList<>();
         linkList.add("https://www.bbc.com/");
         linkList.add("https://www.google.com/");
-        linkList.add("https://www.facebook.com/");
+        linkList.add("https://www.cobratate.com/");
 
-        linkList.stream().parallel().forEach(link -> System.out.println(getWebContent(link)));
+        linkList.stream().parallel().forEach(link ->
+                System.out.println(getWebPageTitle(getWebContent(link))));
+
     }
 
     private static String getWebContent(String link) {
@@ -35,5 +37,11 @@ public class Main {
             System.out.println(e.getMessage());
         }
         return "";
+    }
+
+    private static String getWebPageTitle(String content){
+        String[] aux = content.split("<title>");
+        String[] aux2 = aux[1].split("</title>");
+        return aux2[0];
     }
 }
